@@ -65,4 +65,67 @@ public class User {
                 .append("createAt", createAt)
                 .toString();
     }
+
+    static public class Builder {
+        private Long id;
+        private String name;
+        private Email email;
+        private String password;
+        private int loginCount;
+        private LocalDateTime lastLoginAt;
+        private LocalDateTime createAt;
+
+        public Builder() {
+        }
+
+        public Builder(User user) {
+            this.id = user.id;
+            this.email = user.email;
+            this.password = user.password;
+            this.name = user.name;
+            this.loginCount = user.loginCount;
+            this.lastLoginAt = user.lastLoginAt;
+            this.createAt = user.createAt;
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder email(Email email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder loginCount(int loginCount) {
+            this.loginCount = loginCount;
+            return this;
+        }
+
+        public Builder lastLoginAt(LocalDateTime lastLoginAt) {
+            this.lastLoginAt = lastLoginAt;
+            return this;
+        }
+
+        public Builder createAt(LocalDateTime createAt) {
+            this.createAt = createAt;
+            return this;
+        }
+
+        public User build() {
+            return new User(id, name, email, password, loginCount, lastLoginAt, createAt);
+        }
+    }
 }

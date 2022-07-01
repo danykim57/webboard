@@ -14,8 +14,4 @@ public interface UserRepository {
     void update(User user);
 
     Optional<User> findById(Id<User, Long> userId);
-
-    Optional<ConnectedUser> findAllConnectedUser(Id<User, Long> userId);
-
-    List<Id<User, Long>> findConnectedIds(Id<User, Long> userId);
 }

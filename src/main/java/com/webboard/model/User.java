@@ -22,21 +22,18 @@ public class User {
 
     private int loginCount;
 
-    private LocalDateTime lastLoginAt;
-
     private final LocalDateTime createAt;
 
     public User(String name, Email email, String password) {
-        this(null, name, email, password, 0, null, null);
+        this(null, name, email, password, 0, null);
     }
 
-    public User(Long id, String name, Email email, String password, int loginCount, LocalDateTime lastLoginAt, LocalDateTime createAt) {
+    public User(Long id, String name, Email email, String password, int loginCount, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.loginCount = loginCount;
-        this.lastLoginAt = lastLoginAt;
         this.createAt = defaultIfNull(createAt, now());
     }
 
@@ -61,7 +58,6 @@ public class User {
                 .append("email", email)
                 .append("password", "[PROTECTED]")
                 .append("loginCount", loginCount)
-                .append("lastLoginAt", lastLoginAt)
                 .append("createAt", createAt)
                 .toString();
     }
@@ -72,7 +68,6 @@ public class User {
         private Email email;
         private String password;
         private int loginCount;
-        private LocalDateTime lastLoginAt;
         private LocalDateTime createAt;
 
         public Builder() {
@@ -84,7 +79,6 @@ public class User {
             this.password = user.password;
             this.name = user.name;
             this.loginCount = user.loginCount;
-            this.lastLoginAt = user.lastLoginAt;
             this.createAt = user.createAt;
         }
 
@@ -114,18 +108,13 @@ public class User {
             return this;
         }
 
-        public Builder lastLoginAt(LocalDateTime lastLoginAt) {
-            this.lastLoginAt = lastLoginAt;
-            return this;
-        }
-
         public Builder createAt(LocalDateTime createAt) {
             this.createAt = createAt;
             return this;
         }
 
         public User build() {
-            return new User(id, name, email, password, loginCount, lastLoginAt, createAt);
+            return new User(id, name, email, password, loginCount, createAt);
         }
     }
 }

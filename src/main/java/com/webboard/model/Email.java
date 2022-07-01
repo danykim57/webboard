@@ -1,6 +1,5 @@
 package com.webboard.model;
 
-import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -8,13 +7,16 @@ import java.util.Objects;
 
 import static java.util.regex.Pattern.matches;
 
-@Getter
 public class Email {
 
     private final String address;
 
     public Email(String address) {
         this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     private static boolean checkAddress(String address) {

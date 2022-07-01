@@ -1,6 +1,5 @@
 package com.webboard.model;
 
-import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,7 +9,6 @@ import java.util.Objects;
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
-@Getter
 public class User {
     private final Long id;
 
@@ -36,6 +34,8 @@ public class User {
         this.loginCount = loginCount;
         this.createAt = defaultIfNull(createAt, now());
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -80,6 +80,11 @@ public class User {
             this.name = user.name;
             this.loginCount = user.loginCount;
             this.createAt = user.createAt;
+        }
+
+        public Builder(Email principal, String credentials) {
+            this.email = principal;
+            this.password = credentials;
         }
 
         public Builder id(Long id) {

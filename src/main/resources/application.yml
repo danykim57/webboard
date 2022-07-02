@@ -11,7 +11,7 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
-    url: "jdbc:h2:mem:web_board;MODE=MYSQL;"
+    url: "jdbc:h2:mem:web_board;MODE=MYSQL;DB_CLOSE_DELAY=-1"
     username: sa
     password:
     hikari:
@@ -22,6 +22,10 @@ spring:
       init:
         platform: h2
         schema-locations: classpath:schema-h2.sql
-  #      data-locations: classpath:data-h2.sql
+        data-locations: classpath:data-h2.sql
     server:
       port: 8080
+
+  handlebars:
+    suffix: .html
+    expose-session-attributes: true

@@ -35,7 +35,29 @@ public class User {
         this.createAt = defaultIfNull(createAt, now());
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +66,7 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id);
     }
-
+    //id 인식번호를 통한 해쉬 비교
     @Override
     public int hashCode() {
         return Objects.hash(id);

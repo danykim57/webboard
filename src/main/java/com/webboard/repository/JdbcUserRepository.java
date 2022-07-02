@@ -25,6 +25,11 @@ public class JdbcUserRepository implements UserRepository {
         return jdbcTemplate.query("SELECT * FROM users", mapper);
     }
 
+    public User findByEmail(Email email) {
+        List<User> rs = jdbcTemplate.query("SELECT * FROM users where email=?", mapper, email.getAddress());
+        return rs.isEmpty() ? null : rs.get(0);
+    }
+
     public Optional<User> getUser(long id) {
         User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE seq = ?", mapper, id);
         return Optional.ofNullable(user);
@@ -37,7 +42,7 @@ public class JdbcUserRepository implements UserRepository {
     static RowMapper<User> mapper = (rs, rowNum) -> new User.Builder()
             .id(rs.getLong("id"))
             .name(rs.getString("name"))
-            .email(new Email(rs.getString("meail")))
+            .email(new Email(rs.getString("email")))
             .password(rs.getString("passwd"))
             .loginCount(rs.getInt("login_count"))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))

@@ -3,16 +3,15 @@ package com.webboard.service;
 import com.webboard.controller.UserDTO;
 import com.webboard.model.User;
 import com.webboard.repository.UserRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService {
+public class UserRestServiceImpl implements UserRestService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserRestServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

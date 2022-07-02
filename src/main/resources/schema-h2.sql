@@ -11,7 +11,6 @@ CREATE TABLE users
     passwd         varchar(80) NOT NULL,                             -- 비밀번호
     name           varchar(10) NOT NULL,                             -- 표시 이름
     login_count    int         NOT NULL DEFAULT 0,                   -- 로그인 횟수
-    last_login_at  datetime             DEFAULT NULL,                -- 마지막 로그인 시간
     create_at      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP(), -- 생성 시간
     PRIMARY KEY (id),
     CONSTRAINT unq_user_email UNIQUE (email),
@@ -19,8 +18,6 @@ CREATE TABLE users
 };
 
 -- 게시판 글 데이터
--- 'uid'는 POST 작성자
--- 'comment_count'는 게시글의 댓글 갯수, comments 테이블에서 추출
 CREATE TABLE posts
 {
     id              bigint       NOT NULL AUTO_INCREMENT,

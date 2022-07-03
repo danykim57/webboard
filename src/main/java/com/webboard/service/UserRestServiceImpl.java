@@ -23,8 +23,4 @@ public class UserRestServiceImpl implements UserRestService {
         return userRepository.getUser(id);
     }
 
-    public long join(UserDTO userDTO) {
-        User user = userDTO.getEntity();
-        return userRepository.join(userDTO);
-    }
 }

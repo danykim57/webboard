@@ -5,10 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-    <form action = "/doLogin" method="POST">
-        <input type="text" name="email">
-        <input type="password" name="password">
-        <input type="submit" value="Login">
+    <form action = "/perform_login" method="POST">
+        <table>
+            <tr>
+                <td>Email: </td>
+                <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Login"></td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

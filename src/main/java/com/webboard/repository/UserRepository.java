@@ -11,9 +11,9 @@ public interface UserRepository {
 
     List<User> getUsers();
 
-    User findByEmail(Email email);
+    User findByEmail(String email);
 
     Optional<User> getUser(long id);
 
-    long join(UserDTO userDTO);
+    User save(User user);
 }

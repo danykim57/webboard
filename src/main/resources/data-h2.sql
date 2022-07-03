@@ -1,1 +1,1 @@
-INSERT INTO users(id, name, email, passwd) VALUES(null, 'test01', 'test01@gmail.com', '$2a$10$IZ4L9xs.j3MUK8v3Jo7nCOFPrVbRFK2XHmtBUXSHS1e6cigdtPVYO');
+INSERT INTO users(id, name, email, password) VALUES (null,'tester00','test00@gmail.com','$2a$10$6olU79BQ35Xbt6v63/xhz.JjWXoyA/vKdPNZ8/nF6q3WvN4mFZLDi');

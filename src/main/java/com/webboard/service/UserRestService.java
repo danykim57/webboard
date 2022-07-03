@@ -11,5 +11,4 @@ public interface UserRestService {
 
     Optional<User> getUser(long id);
 
-    long join(UserDTO userDTO);
 }

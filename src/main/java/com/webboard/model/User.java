@@ -2,31 +2,44 @@ package com.webboard.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 public class User {
-    private final Long id;
+    private Long id;
 
     private String name;
-
-    private final Email email;
+    private String email;
 
     private String password;
+    private List<String> role;
 
     private int loginCount;
 
-    private final LocalDateTime createAt;
+    private LocalDateTime createAt;
 
-    public User(String name, Email email, String password) {
+    public User(String name, String email, String password) {
         this(null, name, email, password, 0, null);
     }
 
-    public User(Long id, String name, Email email, String password, int loginCount, LocalDateTime createAt) {
+    public void encryptPassword(PasswordEncoder passwordEncoder) {
+        password = passwordEncoder.encode(password);
+    }
+
+    public List<String> getRole() {
+        return role;
+    }
+
+    public User() {
+    }
+
+    public User(Long id, String name, String email, String password, int loginCount, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -43,7 +56,7 @@ public class User {
         return name;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -57,6 +70,22 @@ public class User {
 
     public LocalDateTime getCreateAt() {
         return createAt;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(List<String> role) {
+        this.role = role;
     }
 
     @Override
@@ -84,10 +113,18 @@ public class User {
                 .toString();
     }
 
+    public <T> void setRoles(List<String> role_user) {
+        this.role = role_user;
+    }
+
+    public List<String> getRoles() {
+        return this.role;
+    }
+
     static public class Builder {
         private Long id;
         private String name;
-        private Email email;
+        private String email;
         private String password;
         private int loginCount;
         private LocalDateTime createAt;
@@ -97,14 +134,14 @@ public class User {
 
         public Builder(User user) {
             this.id = user.id;
+            this.name = user.name;
             this.email = user.email;
             this.password = user.password;
-            this.name = user.name;
             this.loginCount = user.loginCount;
             this.createAt = user.createAt;
         }
 
-        public Builder(Email principal, String credentials) {
+        public Builder(String principal, String credentials) {
             this.email = principal;
             this.password = credentials;
         }
@@ -120,7 +157,7 @@ public class User {
             return this;
         }
 
-        public Builder email(Email email) {
+        public Builder email(String email) {
             this.email = email;
             return this;
         }

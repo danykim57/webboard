@@ -25,8 +25,8 @@ public class JdbcUserRepository implements UserRepository {
         return jdbcTemplate.query("SELECT * FROM users", mapper);
     }
 
-    public User findByEmail(Email email) {
-        List<User> rs = jdbcTemplate.query("SELECT * FROM users where email=?", mapper, email.getAddress());
+    public User findByEmail(String email) {
+        List<User> rs = jdbcTemplate.query("SELECT * FROM users where email=?", mapper, email);
         return rs.isEmpty() ? null : rs.get(0);
     }
 
@@ -35,15 +35,16 @@ public class JdbcUserRepository implements UserRepository {
         return Optional.ofNullable(user);
     }
 
-    public long join(UserDTO userDTO) {
-        return jdbcTemplate.update("INSERT INTO users (email, passwd) VALUES(?,?)", userDTO.getEmail(), userDTO.getPassword(), mapper);
+    public User save(User user) {
+        jdbcTemplate.update("INSERT INTO users (name, email, password) VALUES(?,?,?)", user.getName(), user.getEmail(), user.getPassword(), mapper);
+        return findByEmail(user.getEmail());
     }
 
     static RowMapper<User> mapper = (rs, rowNum) -> new User.Builder()
             .id(rs.getLong("id"))
             .name(rs.getString("name"))
-            .email(new Email(rs.getString("email")))
-            .password(rs.getString("passwd"))
+            .email(rs.getString("email"))
+            .password(rs.getString("password"))
             .loginCount(rs.getInt("login_count"))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))
             .build();

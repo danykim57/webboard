@@ -1,8 +1,8 @@
 package com.webboard.repository;
 
-import com.webboard.controller.UserDTO;
-import com.webboard.model.Email;
 import com.webboard.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -14,6 +14,8 @@ import static com.webboard.util.DateTimeUtils.dateTimeOf;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -36,7 +38,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     public User save(User user) {
-        jdbcTemplate.update("INSERT INTO users (name, email, password) VALUES(?,?,?)", user.getName(), user.getEmail(), user.getPassword(), mapper);
+        jdbcTemplate.update("INSERT INTO users (name, email, password) VALUES(?,?,?)", user.getName(), user.getEmail(), user.getPassword());
         return findByEmail(user.getEmail());
     }
 
@@ -45,6 +47,7 @@ public class JdbcUserRepository implements UserRepository {
             .name(rs.getString("name"))
             .email(rs.getString("email"))
             .password(rs.getString("password"))
+            .role(List.of(rs.getString("role")))
             .loginCount(rs.getInt("login_count"))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))
             .build();

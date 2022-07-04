@@ -9,7 +9,7 @@ CREATE TABLE users
     name                     varchar(10) NOT NULL,                             -- 이름
     email                    varchar(50) NOT NULL,                             -- 로그인 이메일
     password                 varchar(80) NOT NULL,                             -- 비밀번호
-    role                     enum('USER','ADMIN')                              -- 권한
+    role                    varchar(10) NOT NULL DEFAULT 'USER',              -- 권한
     login_count              int         NOT NULL DEFAULT 0,                   -- 로그인횟수
     create_at                datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP(), -- 생성일시
     PRIMARY KEY (id),

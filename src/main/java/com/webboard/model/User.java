@@ -25,7 +25,7 @@ public class User {
     private LocalDateTime createAt;
 
     public User(String name, String email, String password) {
-        this(null, name, email, password, 0, null);
+        this(null, name, email, password, List.of(), 0, null);
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
@@ -39,11 +39,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, int loginCount, LocalDateTime createAt) {
+    public User(Long id, String name, String email, String password, List<String> role, int loginCount, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.loginCount = loginCount;
         this.createAt = defaultIfNull(createAt, now());
     }
@@ -126,6 +127,7 @@ public class User {
         private String name;
         private String email;
         private String password;
+        private List<String> role;
         private int loginCount;
         private LocalDateTime createAt;
 
@@ -137,6 +139,7 @@ public class User {
             this.name = user.name;
             this.email = user.email;
             this.password = user.password;
+            this.role = user.role;
             this.loginCount = user.loginCount;
             this.createAt = user.createAt;
         }
@@ -167,6 +170,11 @@ public class User {
             return this;
         }
 
+        public Builder role(List<String> role) {
+            this.role = role;
+            return this;
+        }
+
         public Builder loginCount(int loginCount) {
             this.loginCount = loginCount;
             return this;
@@ -178,7 +186,7 @@ public class User {
         }
 
         public User build() {
-            return new User(id, name, email, password, loginCount, createAt);
+            return new User(id, name, email, password, role, loginCount, createAt);
         }
     }
 }

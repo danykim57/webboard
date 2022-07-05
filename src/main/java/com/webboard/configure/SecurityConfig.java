@@ -1,6 +1,7 @@
 package com.webboard.configure;
 
 
+import com.webboard.security.LoginFailureHandler;
 import com.webboard.security.LoginSuccessHandler;
 import com.webboard.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(new LoginSuccessHandler())
-                .failureUrl("/login?error=true");
+                .failureHandler(new LoginFailureHandler());
 
     }
 

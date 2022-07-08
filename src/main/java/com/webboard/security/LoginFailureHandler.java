@@ -34,6 +34,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             log.error("로그인 인증 알 수 없는 에러 발생");
         }
         request.setAttribute("errorMessage", "error");
-        response.sendRedirect("login-fail");
+        request.getRequestDispatcher("login-fail").forward(request, response);
     }
 }

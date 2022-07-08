@@ -21,11 +21,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
-        auth.userDetailsService(userDetailsServiceImpl);
+//        auth.inMemoryAuthentication()
+//                .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
+        auth.userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -49,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
+                .failureUrl("/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(new LoginSuccessHandler())
@@ -62,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

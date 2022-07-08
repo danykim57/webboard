@@ -1,6 +1,7 @@
 package com.webboard.service;
 
 import com.webboard.model.User;
+import com.webboard.model.UserPrincipal;
 import com.webboard.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +24,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("No user found with Email: " + email);
+            throw new UsernameNotFoundException("No user found with the email: " + email);
         }
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
+        log.info("User password: " + user.getPassword() );
 
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword().toLowerCase(), enabled, accountNonExpired,
+                user.getEmail(), user.getPassword(), enabled, accountNonExpired,
                 credentialsNonExpired, accountNonLocked, getAuthorities(user.getRoles()));
     }
 

@@ -26,7 +26,3 @@ spring:
       data-locations: classpath:data-h2.sql
 server:
   port: 8080
-
-handlebars:
-  suffix: .html
-  expose-session-attributes: true

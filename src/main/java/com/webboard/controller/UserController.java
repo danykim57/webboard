@@ -30,11 +30,9 @@ public class UserController {
 
     @GetMapping("/login")
     public String getLogin() {
-        return "login";
+        return "login.html";
     }
 
-    @GetMapping("/")
-    public String getIndex() { return "index"; }
     @GetMapping("/signup")
     public String showSignUp(WebRequest webRequest, Model model) {
         UserDTO userDTO = new UserDTO();

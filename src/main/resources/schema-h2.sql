@@ -15,19 +15,17 @@ CREATE TABLE users
     PRIMARY KEY (id),
     CONSTRAINT unq_user_email UNIQUE (email)
 );
-
--- 게시판 글 데이터
---CREATE TABLE posts
---{
---    id              bigint       NOT NULL AUTO_INCREMENT,
---    uid             bigint       NOT NULL,
---    contents        varchar(500) NOT NULL,
---    like_count      int          NOT NULL, DEFAULT 0,
---    comment_count   int          NOT NULL, DEFAULT 0,
---    create_at       datetime     NOT NULL, DEFAULT CURRENT_TIMESTAMP(),
---    PRIMARY KEY (id),
+--게시판 글 데이터
+CREATE TABLE posts
+(
+    id              bigint       NOT NULL AUTO_INCREMENT,
+    title           varchar(50)  NOT NULL,
+    content         varchar(500) NOT NULL,
+    writer          varchar(50)  NOT NULL,
+    create_at       datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    PRIMARY KEY (id)
 --    CONSTRAINT fk_post_to_user FOREIGN KEY (uid) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE RESTRICT
---};
+);
 
 -- POST의 댓글 데이터
 -- 'uid'는 댓글 작성자, 'pid' 댓글이 달린 POST

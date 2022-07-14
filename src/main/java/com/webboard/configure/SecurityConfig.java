@@ -26,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
         auth.userDetailsService(userDetailsServiceImpl)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/css/**", "/script/**", "/image/**", "/fonts/**", "/signup","lib/**");
+        webSecurity.ignoring().antMatchers("/css/**", "/script/**", "/image/**", "/fonts/**", "/signup","lib/**", "/resources/**", "/templates/**");
     }
 
     @Bean

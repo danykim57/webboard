@@ -37,7 +37,7 @@ public class UserController {
     public String showSignUp(WebRequest webRequest, Model model) {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("user", userDTO);
-        return "sign-up";
+        return "sign-up.html";
     }
 
     @PostMapping("/signup")

@@ -1,9 +1,6 @@
 package com.webboard.repository;
 
 import com.webboard.model.Post;
-import com.webboard.model.User;
-import com.webboard.model.Writer;
-import com.webboard.model.commons.Id;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -34,7 +31,7 @@ public class JdbcPostRepository implements PostRepository {
 //            .uid(Id.of(User.class, rs.getLong("uid")))
             .title(rs.getString("title"))
             .content(rs.getString("content"))
-            .writer(new Writer(rs.getString("writer")))
+            .writer(rs.getString("writer"))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))
             .build();
 }

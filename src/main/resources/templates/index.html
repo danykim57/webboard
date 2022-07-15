@@ -3,31 +3,34 @@
   <head>
       <meta charset="UTF-8">
       <title>게시판</title>
-      <link rel="stylesheet" href="css/styles.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </head>
   <body>
     <div>
         <div>
-            <h1><a th:href="@{/list}">글 작성 </a></h1>
+            <h1><a th:href="@{/}">게시판</a></h1>
         </div>
         <div>
-            <table>
+            <table class="table">
                 <thead>
                   <tr>
-                      <th>작성자</th>
-                      <th>제목</th>
-                      <th>작성일</th>
+                      <th scope="col" colspan = "2">작성자</th>
+                      <th scope="col" colspan = "5">제목</th>
+                      <th scope="col" colspan = "3">작성일</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr th:each="post : ${list}" th:onclick=
-                          "'window.location.href=\'' + @{/detail/{bno}{bno=${post.id})} + '\''">
-                      <td th:text="${post.writer}"></td>
-                      <td th:text="${post.title}"></td>
-                      <td th:text="${post.createAt}"></td>
+                          "'window.location.href=\'' + @{/detail/{bno}{bno=${post.id})} + '\''" scope = row>
+                      <td th:text="${post.writer}" colspan = "2"></td>
+                      <td th:text="${post.title}" colspan = "5"></td>
+                      <td th:text="${post.createAt}" colspan = "3"></td>
                   </tr>
                 </tbody>
             </table>
+
+            <button onclick="location.href= '/newpost'" type = "button" class = "btn btn-secondary btn-sm"> 포스트 작성</button>
         </div>
     </div>
   </body>

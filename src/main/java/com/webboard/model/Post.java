@@ -18,15 +18,15 @@ public class Post {
 
     private String content;
 
-    private final Writer writer;
+    private final String writer;
 
     private final LocalDateTime createAt;
 
-    public Post(Long id, String title, String content, Writer writer) {
+    public Post(Long id, String title, String content, String writer) {
         this(null, title, content, writer, null);
     }
 
-    public Post(Long id, String title, String content, Writer writer, LocalDateTime createAt) {
+    public Post(Long id, String title, String content, String writer, LocalDateTime createAt) {
         checkArgument(title.length() >= 0 && content.length() <= 50, "title length must be under 50 chars.");
         checkArgument(content.length() >= 0 && content.length() <= 500,
                 "length of content must be under 500 chars.");
@@ -49,7 +49,7 @@ public class Post {
         return content;
     }
 
-    public Writer getWriter() {
+    public String getWriter() {
         return writer;
     }
 
@@ -88,14 +88,14 @@ public class Post {
 
         private String content;
 
-        private Writer writer;
+        private String writer;
 
         private LocalDateTime createAt;
 
         public Builder() {
         }
 
-        public Builder(Long id, String title, String content, Writer writer, LocalDateTime createAt) {
+        public Builder(Long id, String title, String content, String writer, LocalDateTime createAt) {
             this.id = id;
             this.title = title;
             this.content = content;
@@ -118,7 +118,7 @@ public class Post {
             return this;
         }
 
-        public Builder writer(Writer writer) {
+        public Builder writer(String writer) {
             this.writer = writer;
             return this;
         }

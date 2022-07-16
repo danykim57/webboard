@@ -22,11 +22,18 @@ public class PostController {
     public PostController(PostService postService) {
         this.postService = postService;
     }
-    @GetMapping("/")
-    public String getIndex() {
+    @GetMapping("/jsp/")
+    public String getJspIndex() {
 //        List<Post> list = postService.findAll();
 //        model.addAttribute("list" ,list);
         return "index.jsp";
+    }
+
+    @GetMapping("/")
+    public String getIndex(Model model) {
+        List<Post> list = postService.findAll();
+        model.addAttribute("list" ,list);
+        return "index.html";
     }
 
     @GetMapping("/newpost")

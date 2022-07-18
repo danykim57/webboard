@@ -95,6 +95,14 @@ public class Post {
         public Builder() {
         }
 
+        public Builder(Post post) {
+            this.id = post.id;
+            this.title = post.title;
+            this.content = post.content;
+            this.writer = post.writer;
+            this.createAt = post.createAt;
+        }
+
         public Builder(Long id, String title, String content, String writer, LocalDateTime createAt) {
             this.id = id;
             this.title = title;

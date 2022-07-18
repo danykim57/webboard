@@ -4,12 +4,15 @@ import com.webboard.model.Post;
 import com.webboard.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -43,8 +46,16 @@ public class PostController {
     }
 
     @PostMapping("/newpost")
-    public ModelAndView saveNewPost(@ModelAttribute PostDto postDto, HttpServletRequest request) {
+    public ModelAndView write(@ModelAttribute("post") @Valid final PostDto postDto, final HttpServletRequest request, final Errors errors) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        postService.write(new Post(null, postDto.getTitle(), postDto.getContent(), postDto.getWriter()));
+        return modelAndView;
+    }
 
-        return new ModelAndView("saveNewPostSuccess");
+    @PostMapping("/modifypost")
+    public ModelAndView modify(@ModelAttribute("post") @Valid final PostDto postDto, final HttpServletRequest request, final Errors errors) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        postService.modify(new Post(null, postDto.getTitle(), postDto.getContent(), postDto.getWriter()));
+        return modelAndView;
     }
 }

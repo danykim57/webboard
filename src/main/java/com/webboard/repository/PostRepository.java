@@ -5,5 +5,9 @@ import com.webboard.model.Post;
 import java.util.List;
 
 public interface PostRepository {
-    public List<Post> getPostList();
+    List<Post> getPostList();
+
+    void update(Post post);
+
+    Post insert(Post post);
 }

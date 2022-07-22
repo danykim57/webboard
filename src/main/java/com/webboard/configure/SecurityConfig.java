@@ -1,11 +1,13 @@
 package com.webboard.configure;
 
 
+import com.webboard.security.ConnectionBasedVoter;
 import com.webboard.security.LoginFailureHandler;
 import com.webboard.security.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -27,6 +29,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public ConnectionBasedVoter connectionBasedVoter() {
+        return new ConnectionBasedVoter();
     }
 
     @Override

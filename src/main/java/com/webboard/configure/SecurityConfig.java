@@ -3,7 +3,6 @@ package com.webboard.configure;
 
 import com.webboard.security.LoginFailureHandler;
 import com.webboard.security.LoginSuccessHandler;
-import com.webboard.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,18 +17,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
+
+
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("sa").password(passwordEncoder().encode("1234")).roles("USER");
-        auth.userDetailsService(userDetailsServiceImpl)
-                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override

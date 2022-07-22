@@ -14,32 +14,40 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 public class Post {
     private final Long id;
 
+    private final Id<User, Long> uid;
+
     private String title;
 
     private String content;
 
     private final String writer;
 
+    private final int comments;
+
     private final LocalDateTime createAt;
 
-    public Post(Long id, String title, String content, String writer) {
-        this(null, title, content, writer, null);
+    public Post(Id<User, Long> uid, String title, String content, String writer) {
+        this(null, uid, title, content, writer, 0, null);
     }
 
-    public Post(Long id, String title, String content, String writer, LocalDateTime createAt) {
+    public Post(Long id, Id<User, Long> uid, String title, String content, String writer, int comments, LocalDateTime createAt) {
         checkArgument(title.length() >= 0 && content.length() <= 50, "title length must be under 50 chars.");
         checkArgument(content.length() >= 0 && content.length() <= 500,
                 "length of content must be under 500 chars.");
         this.id = id;
+        this.uid = uid;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.comments = comments;
         this.createAt = defaultIfNull(createAt, now());
     }
 
     public Long getId() {
         return id;
     }
+
+    public Id<User, Long> getUid() { return uid;}
 
     public String getTitle() {
         return title;
@@ -52,6 +60,8 @@ public class Post {
     public String getWriter() {
         return writer;
     }
+
+    public int getComments() { return comments; }
 
     public LocalDateTime getCreateAt() {
         return createAt;
@@ -74,6 +84,7 @@ public class Post {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
+                .append("uid", uid)
                 .append("title", title)
                 .append("content", content)
                 .append("writer", writer)
@@ -84,11 +95,15 @@ public class Post {
     static public class Builder {
         private Long id;
 
+        private Id<User, Long> uid;
+
         private String title;
 
         private String content;
 
         private String writer;
+
+        private int comments;
 
         private LocalDateTime createAt;
 
@@ -97,22 +112,31 @@ public class Post {
 
         public Builder(Post post) {
             this.id = post.id;
+            this.uid = post.uid;
             this.title = post.title;
             this.content = post.content;
             this.writer = post.writer;
+            this.comments = post.comments;
             this.createAt = post.createAt;
         }
 
-        public Builder(Long id, String title, String content, String writer, LocalDateTime createAt) {
+        public Builder(Long id, Id<User, Long> uid, String title, String content, String writer, int comments, LocalDateTime createAt) {
             this.id = id;
+            this.uid = uid;
             this.title = title;
             this.content = content;
             this.writer = writer;
+            this.comments = comments;
             this.createAt = createAt;
         }
 
         public Builder id(Long id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder uid(Id<User, Long> uid) {
+            this.uid = uid;
             return this;
         }
 
@@ -131,13 +155,18 @@ public class Post {
             return this;
         }
 
+        public Builder comments(int comments) {
+            this.comments = comments;
+            return this;
+        }
+
         public Builder createAt(LocalDateTime createAt) {
             this.createAt = createAt;
             return this;
         }
 
         public Post build() {
-            return new Post(id, title, content, writer, createAt);
+            return new Post(id, uid, title, content, writer, comments, createAt);
         }
     }
 }

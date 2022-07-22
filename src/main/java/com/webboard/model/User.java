@@ -18,33 +18,33 @@ public class User {
     private String email;
 
     private String password;
-    private List<String> role;
+//    private List<String> role;
 
     private int loginCount;
 
     private LocalDateTime createAt;
 
     public User(String name, String email, String password) {
-        this(null, name, email, password, List.of(), 0, null);
+        this(null, name, email, password, 0, null);
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
     }
 
-    public List<String> getRole() {
-        return role;
-    }
+//    public List<String> getRole() {
+//        return role;
+//    }
 
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, List<String> role, int loginCount, LocalDateTime createAt) {
+    public User(Long id, String name, String email, String password, int loginCount, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
+//        this.role = role;
         this.loginCount = loginCount;
         this.createAt = defaultIfNull(createAt, now());
     }
@@ -85,9 +85,9 @@ public class User {
         this.password = password;
     }
 
-    public void setRole(List<String> role) {
-        this.role = role;
-    }
+//    public void setRole(List<String> role) {
+//        this.role = role;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -114,13 +114,13 @@ public class User {
                 .toString();
     }
 
-    public <T> void setRoles(List<String> role_user) {
-        this.role = role_user;
-    }
+//    public <T> void setRoles(List<String> role_user) {
+//        this.role = role_user;
+//    }
 
-    public List<String> getRoles() {
-        return this.role;
-    }
+//    public List<String> getRoles() {
+//        return this.role;
+//    }
 
     static public class Builder {
         private Long id;
@@ -139,7 +139,7 @@ public class User {
             this.name = user.name;
             this.email = user.email;
             this.password = user.password;
-            this.role = user.role;
+//            this.role = user.role;
             this.loginCount = user.loginCount;
             this.createAt = user.createAt;
         }
@@ -186,7 +186,7 @@ public class User {
         }
 
         public User build() {
-            return new User(id, name, email, password, role, loginCount, createAt);
+            return new User(id, name, email, password, loginCount, createAt);
         }
     }
 }

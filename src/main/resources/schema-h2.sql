@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 
 -- 회원 데이터
@@ -26,6 +27,19 @@ CREATE TABLE posts
     create_at       datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id),
     CONSTRAINT fk_post_to_user FOREIGN KEY (uid) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE roles (
+    id              bigint       NOT NULL AUTO_INCREMENT,
+    name            varchar(50)  NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE users_roles (
+    user_id         bigint       NOT NULL,
+    role_id         bigint       NOT NULL,
+    CONSTRAINT fk_users_roles_to_roles FOREIGN KEY (role_id) REFERENCES roles (id),
+    CONSTRAINT fk_users_roles_to_users FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 -- POST의 댓글 데이터

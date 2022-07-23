@@ -39,7 +39,9 @@ public class JdbcUserRepository implements UserRepository {
 
     public User save(User user) {
         jdbcTemplate.update("INSERT INTO users (name, email, password) VALUES(?,?,?)", user.getName(), user.getEmail(), user.getPassword());
-        return findByEmail(user.getEmail());
+        User newUser = findByEmail(user.getEmail());
+        jdbcTemplate.update("INSERT INTO users_roles(user_id, role_id) VALUES(?, 1)", newUser.getId());
+        return newUser;
     }
 
     static RowMapper<User> mapper = (rs, rowNum) -> new User.Builder()
@@ -47,7 +49,6 @@ public class JdbcUserRepository implements UserRepository {
             .name(rs.getString("name"))
             .email(rs.getString("email"))
             .password(rs.getString("password"))
-            .role(List.of(rs.getString("role")))
             .loginCount(rs.getInt("login_count"))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))
             .build();

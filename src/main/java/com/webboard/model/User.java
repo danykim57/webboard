@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,33 +19,29 @@ public class User {
     private String email;
 
     private String password;
-//    private List<String> role;
+    private Collection<String> roles;
 
     private int loginCount;
 
     private LocalDateTime createAt;
 
     public User(String name, String email, String password) {
-        this(null, name, email, password, 0, null);
+        this(null, name, email, password, List.of(), 0, null);
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
     }
 
-//    public List<String> getRole() {
-//        return role;
-//    }
-
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, int loginCount, LocalDateTime createAt) {
+    public User(Long id, String name, String email, String password, Collection<String> roles, int loginCount, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-//        this.role = role;
+        this.roles = roles;
         this.loginCount = loginCount;
         this.createAt = defaultIfNull(createAt, now());
     }
@@ -85,9 +82,9 @@ public class User {
         this.password = password;
     }
 
-//    public void setRole(List<String> role) {
-//        this.role = role;
-//    }
+    public void setroles(Collection<String> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -114,20 +111,20 @@ public class User {
                 .toString();
     }
 
-//    public <T> void setRoles(List<String> role_user) {
-//        this.role = role_user;
-//    }
+    public <T> void setRoles(Collection<String> roles_user) {
+        this.roles = roles_user;
+    }
 
-//    public List<String> getRoles() {
-//        return this.role;
-//    }
+    public Collection<String> getRoles() {
+        return this.roles;
+    }
 
     static public class Builder {
         private Long id;
         private String name;
         private String email;
         private String password;
-        private List<String> role;
+        private Collection<String> roles;
         private int loginCount;
         private LocalDateTime createAt;
 
@@ -139,7 +136,7 @@ public class User {
             this.name = user.name;
             this.email = user.email;
             this.password = user.password;
-//            this.role = user.role;
+            this.roles = user.roles;
             this.loginCount = user.loginCount;
             this.createAt = user.createAt;
         }
@@ -170,8 +167,8 @@ public class User {
             return this;
         }
 
-        public Builder role(List<String> role) {
-            this.role = role;
+        public Builder roles(Collection<String> roles) {
+            this.roles = roles;
             return this;
         }
 
@@ -186,7 +183,7 @@ public class User {
         }
 
         public User build() {
-            return new User(id, name, email, password, loginCount, createAt);
+            return new User(id, name, email, password, roles, loginCount, createAt);
         }
     }
 }

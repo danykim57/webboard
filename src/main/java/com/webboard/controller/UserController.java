@@ -54,9 +54,9 @@ public class UserController {
             return mav;
         } catch (final RuntimeException ex) {
             log.warn("Unable to register user", ex);
-            return new ModelAndView("emailError", "user", userDto);
+            return new ModelAndView("emailError.html", "user", userDto);
         }
-        return new ModelAndView("successRegister", "user", userDto);
+        return new ModelAndView("successRegister.html", "user", userDto);
     }
 
 }

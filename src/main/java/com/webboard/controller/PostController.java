@@ -26,8 +26,6 @@ public class PostController {
     }
     @GetMapping("/jsp/")
     public String getJspIndex() {
-//        List<Post> list = postService.findAll();
-//        model.addAttribute("list" ,list);
         return "index.jsp";
     }
 

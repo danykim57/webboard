@@ -4,8 +4,8 @@ import com.webboard.model.Post;
 import com.webboard.service.PostService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,4 +26,11 @@ public class PostRestController {
         }
         return str;
     }
+
+    @PostMapping(path = "post")
+    public String posting(Post post) {
+        return postService.write(post).toString();
+    }
+
+
 }

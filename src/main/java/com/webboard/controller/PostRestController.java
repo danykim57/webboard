@@ -3,6 +3,7 @@ package com.webboard.controller;
 import com.webboard.model.Post;
 import com.webboard.service.PostService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,18 +19,16 @@ public class PostRestController {
     }
 
     @GetMapping(path = "api/board", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getList() throws Exception {
+    public ResponseEntity getList() throws Exception {
         List<Post> posts = postService.findAll();
         String str = "";
-        for (Post post : posts) {
-            str += post.toString();
-        }
-        return str;
+        return ResponseEntity.ok().body(posts);
     }
 
     @PostMapping(path = "post")
-    public String posting(Post post) {
-        return postService.write(post).toString();
+    public ResponseEntity posting(Post post) {
+        Post newPost = postService.write(post);
+        return ResponseEntity.ok().body(newPost);
     }
 
 

@@ -1,7 +1,5 @@
 package com.webboard.repository;
 
-import com.webboard.controller.UserDTO;
-import com.webboard.model.Email;
 import com.webboard.model.User;
 
 import java.util.List;
